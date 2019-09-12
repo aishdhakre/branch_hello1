@@ -1,0 +1,34 @@
+pipeline {
+    agent any
+    stages {
+        stage('Checkout') {
+            steps {
+                    git changelog: false, credentialsId: 'e60e92c1-fee9-4abb-a83f-355643125da4', poll: false, url: 'https://github.com/rchidana/Accenture_Pipeline.git'
+                    echo "Chekout Successfully!!";
+            }
+        }
+        
+        stage('Compile') {
+            steps {
+                    sh label: '', script: '/bin/sh Compile.sh'
+                    echo "compile Successfully!";
+            }
+        }
+        
+        stage('Package') {
+            steps {
+                  sh label: '', script: '/bin/sh Package.sh'
+                  echo "Package successfully!!"; 
+               
+           }
+        }
+        
+        stage('Deploy') {
+            steps {
+                sh label: '', script: '/bin/sh Package.sh'
+                  echo "Pass!";
+            }
+        }
+    }
+ }
+
